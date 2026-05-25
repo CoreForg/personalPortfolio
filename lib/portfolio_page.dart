@@ -1,5 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+const String _linkedinUrl =
+    'https://www.linkedin.com/in/shivam-gupta-6129581a0/';
+const String _instagramUrl = 'https://www.instagram.com/shivam_since2002_/';
+const String _githubUrl = 'https://github.com/shivam2109964';
+const String _linkedinCommunityUrl =
+    'https://www.linkedin.com/groups/18698003/';
+
+Future<void> _launchExternalUrl(String url) async {
+  final uri = Uri.parse(url);
+  await launchUrl(uri, mode: LaunchMode.externalApplication);
+}
 
 class PortfolioPage extends StatelessWidget {
   const PortfolioPage({super.key});
@@ -17,6 +30,7 @@ class PortfolioPage extends StatelessWidget {
             _FeaturedWork(),
             _SessionsSection(),
             _ResourcesSection(),
+            _CommunitySection(),
             _TestimonialsSection(),
             _HireSection(),
             Footer(),
@@ -56,10 +70,7 @@ class SectionWrapper extends StatelessWidget {
     double verticalMult = isDesktop ? 1.0 : (isTablet ? 0.8 : 0.6);
 
     return Container(
-      decoration: BoxDecoration(
-        color: backgroundColor,
-        border: border,
-      ),
+      decoration: BoxDecoration(color: backgroundColor, border: border),
       width: double.infinity,
       child: Center(
         child: ConstrainedBox(
@@ -91,13 +102,18 @@ class NavBar extends StatelessWidget {
     return Container(
       decoration: const BoxDecoration(
         color: Colors.white,
-        border: Border(bottom: BorderSide(color: Color(0xFFE8E8E8), width: 0.5)),
+        border: Border(
+          bottom: BorderSide(color: Color(0xFFE8E8E8), width: 0.5),
+        ),
       ),
       child: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 1200),
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: isDesktop ? 64 : 24, vertical: 16),
+            padding: EdgeInsets.symmetric(
+              horizontal: isDesktop ? 64 : 24,
+              vertical: 16,
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -112,34 +128,67 @@ class NavBar extends StatelessWidget {
                   highlightColor: Colors.transparent,
                   child: const Text(
                     'DevPortfolio',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, letterSpacing: -0.5, color: Color(0xFF111111)),
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      letterSpacing: -0.5,
+                      color: Color(0xFF111111),
+                    ),
                   ),
                 ),
                 if (isDesktop)
                   Row(
                     children: [
-                      _NavLink('Projects', '/projects', active: activeRoute == '/projects'),
+                      _NavLink(
+                        'Projects',
+                        '/projects',
+                        active: activeRoute == '/projects',
+                      ),
                       const SizedBox(width: 24),
-                      _NavLink('Products', '/products', active: activeRoute == '/products'),
+                      _NavLink(
+                        'Products',
+                        '/products',
+                        active: activeRoute == '/products',
+                      ),
                       const SizedBox(width: 24),
-                      _NavLink('Sessions', '/sessions', active: activeRoute == '/sessions'),
+                      _NavLink(
+                        'Knowledge',
+                        '/sessions',
+                        active: activeRoute == '/sessions',
+                      ),
                       const SizedBox(width: 24),
-                      _NavLink('Reviews', '/reviews', active: activeRoute == '/reviews'),
+                      _NavLink(
+                        'Reviews',
+                        '/reviews',
+                        active: activeRoute == '/reviews',
+                      ),
                       const SizedBox(width: 24),
-                      _NavLink('Hire me', '/hire', active: activeRoute == '/hire'),
+                      _NavLink(
+                        'Hire me',
+                        '/hire',
+                        active: activeRoute == '/hire',
+                      ),
                     ],
                   ),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () => _launchExternalUrl(_linkedinUrl),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
                     foregroundColor: const Color(0xFF111111),
                     elevation: 0,
                     side: const BorderSide(color: Color(0xFF111111), width: 1),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(24),
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 12,
+                    ),
                   ),
-                  child: const Text('Book a call', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500)),
+                  child: const Text(
+                    'LinkedIn',
+                    style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
+                  ),
                 ),
               ],
             ),
@@ -171,7 +220,11 @@ class _NavLink extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.only(bottom: 2),
         decoration: active
-            ? const BoxDecoration(border: Border(bottom: BorderSide(color: Color(0xFF111111), width: 1.5)))
+            ? const BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(color: Color(0xFF111111), width: 1.5),
+                ),
+              )
             : null,
         child: Text(
           text,
@@ -207,11 +260,7 @@ class _HeroSection extends StatelessWidget {
               ],
             )
           : const Column(
-              children: [
-                _HeroLeft(),
-                SizedBox(height: 60),
-                _HeroRight(),
-              ],
+              children: [_HeroLeft(), SizedBox(height: 60), _HeroRight()],
             ),
     );
   }
@@ -224,7 +273,7 @@ class _HeroLeft extends StatelessWidget {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final isDesktop = width > 900;
-    
+
     final double headingSize = isDesktop ? 56 : 36;
     final double subTextSize = isDesktop ? 16 : 14;
 
@@ -244,27 +293,51 @@ class _HeroLeft extends StatelessWidget {
               Container(
                 width: 8,
                 height: 8,
-                decoration: const BoxDecoration(color: Color(0xFFEF9F27), shape: BoxShape.circle),
+                decoration: const BoxDecoration(
+                  color: Color(0xFFEF9F27),
+                  shape: BoxShape.circle,
+                ),
               ),
               const SizedBox(width: 8),
-              const Text('Available for new projects', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: Color(0xFF854F0B))),
+              const Text(
+                'Freelance work + tech resources',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                  color: Color(0xFF854F0B),
+                ),
+              ),
             ],
           ),
         ),
         RichText(
           text: TextSpan(
-            style: TextStyle(fontSize: headingSize, fontWeight: FontWeight.w600, height: 1.1, letterSpacing: -1, color: const Color(0xFF111111), fontFamily: 'Inter'),
+            style: TextStyle(
+              fontSize: headingSize,
+              fontWeight: FontWeight.w600,
+              height: 1.1,
+              letterSpacing: -1,
+              color: const Color(0xFF111111),
+              fontFamily: 'Inter',
+            ),
             children: const [
               TextSpan(text: "Hi, I'm Shivam —\n"),
-              TextSpan(text: "Full-Stack\n", style: TextStyle(color: Color(0xFFEF9F27))),
-              TextSpan(text: "Mobile Dev"),
+              TextSpan(
+                text: "Freelance\n",
+                style: TextStyle(color: Color(0xFFEF9F27)),
+              ),
+              TextSpan(text: "Tech Builder"),
             ],
           ),
         ),
         const SizedBox(height: 16),
         Text(
-          'I craft high-performance mobile apps with Flutter and build resilient backends using Spring Boot + PostgreSQL. Delivering scale and precision.',
-          style: TextStyle(fontSize: subTextSize, color: const Color(0xFF666666), height: 1.6),
+          'I help clients from LinkedIn turn ideas into clean Flutter apps, Spring Boot backends, and practical tech systems. I also share free and paid Gumroad resources for developers who want to ship faster.',
+          style: TextStyle(
+            fontSize: subTextSize,
+            color: const Color(0xFF666666),
+            height: 1.6,
+          ),
         ),
         const SizedBox(height: 24),
         const Wrap(
@@ -275,7 +348,8 @@ class _HeroLeft extends StatelessWidget {
             _TechTag('Spring Boot'),
             _TechTag('PostgreSQL'),
             _TechTag('REST APIs'),
-            _TechTag('System Design'),
+            _TechTag('Gumroad Products'),
+            _TechTag('Tech Knowledge'),
           ],
         ),
         const SizedBox(height: 40),
@@ -284,30 +358,46 @@ class _HeroLeft extends StatelessWidget {
           runSpacing: 12,
           children: [
             ElevatedButton.icon(
-              onPressed: () {},
-              icon: const Icon(TablerIcons.eye, size: 16),
-              label: const Text('View projects', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
+              onPressed: () => Navigator.pushNamed(context, '/hire'),
+              icon: const Icon(TablerIcons.briefcase, size: 16),
+              label: const Text(
+                'Hire for freelance',
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+              ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFFEF9F27),
                 foregroundColor: Colors.white,
                 elevation: 0,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32)),
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(32),
+                ),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 24,
+                  vertical: 16,
+                ),
               ),
             ),
             OutlinedButton.icon(
-              onPressed: () {},
-              icon: const Icon(TablerIcons.calendar, size: 16),
-              label: const Text('Book session ₹399', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
+              onPressed: () => Navigator.pushNamed(context, '/products'),
+              icon: const Icon(TablerIcons.brand_gumroad, size: 16),
+              label: const Text(
+                'Explore products',
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+              ),
               style: OutlinedButton.styleFrom(
                 foregroundColor: const Color(0xFF111111),
                 side: const BorderSide(color: Color(0xFF222222), width: 1),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32)),
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(32),
+                ),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 24,
+                  vertical: 16,
+                ),
               ),
             ),
           ],
-        )
+        ),
       ],
     );
   }
@@ -327,7 +417,14 @@ class _TechTag extends StatelessWidget {
         border: Border.all(color: const Color(0xFFE8E8E8), width: 1),
         borderRadius: BorderRadius.circular(24),
       ),
-      child: Text(label, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: Color(0xFF555555))),
+      child: Text(
+        label,
+        style: const TextStyle(
+          fontSize: 12,
+          fontWeight: FontWeight.w500,
+          color: Color(0xFF555555),
+        ),
+      ),
     );
   }
 }
@@ -355,7 +452,10 @@ class _HeroRight extends StatelessWidget {
               height: 250,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                border: Border.all(color: Colors.white.withValues(alpha: 0.2), width: 2),
+                border: Border.all(
+                  color: Colors.white.withValues(alpha: 0.2),
+                  width: 2,
+                ),
               ),
             ),
           ),
@@ -367,7 +467,10 @@ class _HeroRight extends StatelessWidget {
               height: 150,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                border: Border.all(color: Colors.white.withValues(alpha: 0.2), width: 2),
+                border: Border.all(
+                  color: Colors.white.withValues(alpha: 0.2),
+                  width: 2,
+                ),
               ),
             ),
           ),
@@ -382,10 +485,14 @@ class _HeroRight extends StatelessWidget {
                   color: Colors.black.withValues(alpha: 0.1),
                   blurRadius: 20,
                   offset: const Offset(0, 10),
-                )
+                ),
               ],
             ),
-            child: const Icon(TablerIcons.user, size: 56, color: Color(0xFFEF9F27)),
+            child: CircleAvatar(
+              radius: 60,
+              backgroundColor: Colors.white,
+              backgroundImage: const AssetImage('assets/profile.jpg'),
+            ),
           ),
           Positioned(
             bottom: 24,
@@ -400,15 +507,29 @@ class _HeroRight extends StatelessWidget {
                     color: Colors.black.withValues(alpha: 0.1),
                     blurRadius: 20,
                     offset: const Offset(0, 10),
-                  )
+                  ),
                 ],
               ),
               child: const Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text('50+', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Color(0xFF111111))),
-                  Text('Projects delivered', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: Color(0xFF666666))),
+                  Text(
+                    'LinkedIn',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF111111),
+                    ),
+                  ),
+                  Text(
+                    'Freelance leads',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                      color: Color(0xFF666666),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -446,25 +567,59 @@ class _StatsBar extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          Expanded(child: _StatItem(num: '50+', label: 'Projects delivered')),
-                          Expanded(child: _StatItem(num: '100+', label: 'Mentorship sessions')),
+                          Expanded(
+                            child: _StatItem(
+                              num: '50+',
+                              label: 'Projects delivered',
+                            ),
+                          ),
+                          Expanded(
+                            child: _StatItem(
+                              num: '100+',
+                              label: 'Tech resources',
+                            ),
+                          ),
                         ],
                       ),
                       SizedBox(height: 24),
                       Row(
                         children: [
-                          Expanded(child: _StatItem(num: '40+', label: 'Happy clients')),
-                          Expanded(child: _StatItem(num: '5k+', label: 'LinkedIn followers')),
+                          Expanded(
+                            child: _StatItem(
+                              num: '40+',
+                              label: 'Happy clients',
+                            ),
+                          ),
+                          Expanded(
+                            child: _StatItem(
+                              num: '5k+',
+                              label: 'LinkedIn community',
+                            ),
+                          ),
                         ],
                       ),
                     ],
                   )
                 : const Row(
                     children: [
-                      Expanded(child: _StatItem(num: '50+', label: 'Projects delivered')),
-                      Expanded(child: _StatItem(num: '100+', label: 'Mentorship sessions')),
-                      Expanded(child: _StatItem(num: '40+', label: 'Happy clients')),
-                      Expanded(child: _StatItem(num: '5k+', label: 'LinkedIn followers')),
+                      Expanded(
+                        child: _StatItem(
+                          num: '50+',
+                          label: 'Projects delivered',
+                        ),
+                      ),
+                      Expanded(
+                        child: _StatItem(num: '100+', label: 'Tech resources'),
+                      ),
+                      Expanded(
+                        child: _StatItem(num: '40+', label: 'Happy clients'),
+                      ),
+                      Expanded(
+                        child: _StatItem(
+                          num: '5k+',
+                          label: 'LinkedIn community',
+                        ),
+                      ),
                     ],
                   ),
           ),
@@ -485,9 +640,20 @@ class _StatItem extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(num, style: const TextStyle(fontSize: 32, fontWeight: FontWeight.w600, letterSpacing: -1, color: Color(0xFF111111))),
+        Text(
+          num,
+          style: const TextStyle(
+            fontSize: 32,
+            fontWeight: FontWeight.w600,
+            letterSpacing: -1,
+            color: Color(0xFF111111),
+          ),
+        ),
         const SizedBox(height: 4),
-        Text(label, style: const TextStyle(fontSize: 13, color: Color(0xFF666666))),
+        Text(
+          label,
+          style: const TextStyle(fontSize: 13, color: Color(0xFF666666)),
+        ),
       ],
     );
   }
@@ -514,13 +680,23 @@ class _FeaturedWork extends StatelessWidget {
               const Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Featured work', style: TextStyle(fontSize: 28, fontWeight: FontWeight.w600, letterSpacing: -0.5, color: Color(0xFF111111))),
+                  Text(
+                    'Featured work',
+                    style: TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.w600,
+                      letterSpacing: -0.5,
+                      color: Color(0xFF111111),
+                    ),
+                  ),
                   SizedBox(height: 8),
-                  Text('Production-ready apps built with scale in mind.', style: TextStyle(fontSize: 15, color: Color(0xFF666666))),
+                  Text(
+                    'Freelance builds for startups, founders, and growing teams.',
+                    style: TextStyle(fontSize: 15, color: Color(0xFF666666)),
+                  ),
                 ],
               ),
-              if (width > 600)
-                _SeeAllBtn('View all projects'),
+              if (width > 600) _SeeAllBtn('View all projects'),
             ],
           ),
           const SizedBox(height: 40),
@@ -529,7 +705,8 @@ class _FeaturedWork extends StatelessWidget {
                   children: [
                     ProjectCard(
                       title: 'ShopEase — E-commerce app',
-                      desc: 'Full e-commerce platform with smart cart, secure payment gateways, live order tracking, and a comprehensive admin dashboard.',
+                      desc:
+                          'Full e-commerce platform with smart cart, secure payment gateways, live order tracking, and a comprehensive admin dashboard.',
                       icon: TablerIcons.shopping_bag,
                       iconColor: Color(0xFF854F0B),
                       bgColor: Color(0xFFFAEEDA),
@@ -538,7 +715,8 @@ class _FeaturedWork extends StatelessWidget {
                     SizedBox(height: 24),
                     ProjectCard(
                       title: 'BookIt — Booking system',
-                      desc: 'Versatile booking engine for salons, clinics, and gyms. Features multi-tenant admin dashboards and robust REST APIs.',
+                      desc:
+                          'Versatile booking engine for salons, clinics, and gyms. Features multi-tenant admin dashboards and robust REST APIs.',
                       icon: TablerIcons.calendar,
                       iconColor: Color(0xFFEF9F27),
                       bgColor: Color(0xFF111111),
@@ -548,30 +726,32 @@ class _FeaturedWork extends StatelessWidget {
                 )
               : const Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        child: ProjectCard(
-                          title: 'ShopEase — E-commerce app',
-                          desc: 'Full e-commerce platform with smart cart, secure payment gateways, live order tracking, and a comprehensive admin dashboard.',
-                          icon: TablerIcons.shopping_bag,
-                          iconColor: Color(0xFF854F0B),
-                          bgColor: Color(0xFFFAEEDA),
-                          tags: ['Flutter', 'Spring Boot', 'Stripe'],
-                        ),
+                  children: [
+                    Expanded(
+                      child: ProjectCard(
+                        title: 'ShopEase — E-commerce app',
+                        desc:
+                            'Full e-commerce platform with smart cart, secure payment gateways, live order tracking, and a comprehensive admin dashboard.',
+                        icon: TablerIcons.shopping_bag,
+                        iconColor: Color(0xFF854F0B),
+                        bgColor: Color(0xFFFAEEDA),
+                        tags: ['Flutter', 'Spring Boot', 'Stripe'],
                       ),
-                      SizedBox(width: 24),
-                      Expanded(
-                        child: ProjectCard(
-                          title: 'BookIt — Booking system',
-                          desc: 'Versatile booking engine for salons, clinics, and gyms. Features multi-tenant admin dashboards and robust REST APIs.',
-                          icon: TablerIcons.calendar,
-                          iconColor: Color(0xFFEF9F27),
-                          bgColor: Color(0xFF111111),
-                          tags: ['Flutter', 'PostgreSQL', 'Redis'],
-                        ),
+                    ),
+                    SizedBox(width: 24),
+                    Expanded(
+                      child: ProjectCard(
+                        title: 'BookIt — Booking system',
+                        desc:
+                            'Versatile booking engine for salons, clinics, and gyms. Features multi-tenant admin dashboards and robust REST APIs.',
+                        icon: TablerIcons.calendar,
+                        iconColor: Color(0xFFEF9F27),
+                        bgColor: Color(0xFF111111),
+                        tags: ['Flutter', 'PostgreSQL', 'Redis'],
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
+                ),
           if (width <= 600)
             Padding(
               padding: const EdgeInsets.only(top: 24),
@@ -600,9 +780,20 @@ class _SeeAllBtn extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(label, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: Color(0xFF111111))),
+          Text(
+            label,
+            style: const TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w500,
+              color: Color(0xFF111111),
+            ),
+          ),
           const SizedBox(width: 6),
-          const Icon(TablerIcons.arrow_right, size: 14, color: Color(0xFF111111)),
+          const Icon(
+            TablerIcons.arrow_right,
+            size: 14,
+            color: Color(0xFF111111),
+          ),
         ],
       ),
     );
@@ -639,7 +830,7 @@ class ProjectCard extends StatelessWidget {
             color: Colors.black.withValues(alpha: 0.02),
             blurRadius: 10,
             offset: const Offset(0, 4),
-          )
+          ),
         ],
       ),
       child: Column(
@@ -649,7 +840,9 @@ class ProjectCard extends StatelessWidget {
             height: 220,
             decoration: BoxDecoration(
               color: bgColor,
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(19)),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(19),
+              ),
             ),
             child: Stack(
               alignment: Alignment.center,
@@ -661,14 +854,28 @@ class ProjectCard extends StatelessWidget {
                   child: Wrap(
                     spacing: 8,
                     runSpacing: 8,
-                    children: tags.map((t) => Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                      decoration: BoxDecoration(
-                        color: Colors.white.withValues(alpha: 0.9),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Text(t, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: Color(0xFF333333))),
-                    )).toList(),
+                    children: tags
+                        .map(
+                          (t) => Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 10,
+                              vertical: 4,
+                            ),
+                            decoration: BoxDecoration(
+                              color: Colors.white.withValues(alpha: 0.9),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Text(
+                              t,
+                              style: const TextStyle(
+                                fontSize: 11,
+                                fontWeight: FontWeight.w600,
+                                color: Color(0xFF333333),
+                              ),
+                            ),
+                          ),
+                        )
+                        .toList(),
                   ),
                 ),
               ],
@@ -679,40 +886,76 @@ class ProjectCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Color(0xFF111111))),
-                const SizedBox(height: 8),
-                Text(desc, style: const TextStyle(fontSize: 14, color: Color(0xFF666666), height: 1.5)),
-                const SizedBox(height: 24),
-                  Wrap(
-                    alignment: WrapAlignment.spaceBetween,
-                    crossAxisAlignment: WrapCrossAlignment.center,
-                    spacing: 16,
-                    runSpacing: 16,
-                    children: [
-                      ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFFEF9F27),
-                          foregroundColor: Colors.white,
-                          elevation: 0,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                        ),
-                        child: const Text('View project', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500)),
-                      ),
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const Icon(TablerIcons.brand_github, size: 18, color: Color(0xFF666666)),
-                          const SizedBox(width: 6),
-                          const Text('GitHub', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: Color(0xFF666666))),
-                        ],
-                      ),
-                    ],
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFF111111),
                   ),
-                ],
-              ),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  desc,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: Color(0xFF666666),
+                    height: 1.5,
+                  ),
+                ),
+                const SizedBox(height: 24),
+                Wrap(
+                  alignment: WrapAlignment.spaceBetween,
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  spacing: 16,
+                  runSpacing: 16,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFFEF9F27),
+                        foregroundColor: Colors.white,
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(24),
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 12,
+                        ),
+                      ),
+                      child: const Text(
+                        'View project',
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Icon(
+                          TablerIcons.brand_github,
+                          size: 18,
+                          color: Color(0xFF666666),
+                        ),
+                        const SizedBox(width: 6),
+                        const Text(
+                          'GitHub',
+                          style: TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w500,
+                            color: Color(0xFF666666),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
             ),
+          ),
         ],
       ),
     );
@@ -738,26 +981,65 @@ class _SessionsSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Mentorship & sessions', style: TextStyle(fontSize: 28, fontWeight: FontWeight.w600, letterSpacing: -0.5, color: Color(0xFF111111))),
+          const Text(
+            'Knowledge sharing',
+            style: TextStyle(
+              fontSize: 28,
+              fontWeight: FontWeight.w600,
+              letterSpacing: -0.5,
+              color: Color(0xFF111111),
+            ),
+          ),
           const SizedBox(height: 8),
-          const Text('Level up your development skills with 1-on-1 guidance.', style: TextStyle(fontSize: 15, color: Color(0xFF666666))),
+          const Text(
+            'Practical tech notes, guides, and developer learning resources.',
+            style: TextStyle(fontSize: 15, color: Color(0xFF666666)),
+          ),
           const SizedBox(height: 40),
           isMobile
               ? const Column(
                   children: [
-                    SessionCard(icon: TablerIcons.route, title: 'Flutter doubt session', timePrice: '30 min · ₹399', desc: 'Stuck on a bug? Let\'s fix it together.'),
+                    SessionCard(
+                      icon: TablerIcons.brand_linkedin,
+                      title: 'LinkedIn tech posts',
+                      timePrice: 'Weekly',
+                      desc:
+                          'Short lessons from freelance projects, Flutter builds, and backend architecture.',
+                    ),
                     SizedBox(height: 24),
-                    SessionCard(icon: TablerIcons.code, title: 'Code & project review', timePrice: '45 min · ₹599', desc: 'Deep dive into your architecture and code quality.'),
+                    SessionCard(
+                      icon: TablerIcons.file_text,
+                      title: 'Build breakdowns',
+                      timePrice: 'Free',
+                      desc:
+                          'PDF notes, templates, and examples shared for developers who want to improve faster.',
+                    ),
                   ],
                 )
               : const Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(child: SessionCard(icon: TablerIcons.route, title: 'Flutter doubt session', timePrice: '30 min · ₹399', desc: 'Stuck on a bug? Let\'s fix it together.')),
-                      SizedBox(width: 24),
-                      Expanded(child: SessionCard(icon: TablerIcons.code, title: 'Code & project review', timePrice: '45 min · ₹599', desc: 'Deep dive into your architecture and code quality.')),
-                    ],
-                  ),
+                  children: [
+                    Expanded(
+                      child: SessionCard(
+                        icon: TablerIcons.brand_linkedin,
+                        title: 'LinkedIn tech posts',
+                        timePrice: 'Weekly',
+                        desc:
+                            'Short lessons from freelance projects, Flutter builds, and backend architecture.',
+                      ),
+                    ),
+                    SizedBox(width: 24),
+                    Expanded(
+                      child: SessionCard(
+                        icon: TablerIcons.file_text,
+                        title: 'Build breakdowns',
+                        timePrice: 'Free',
+                        desc:
+                            'PDF notes, templates, and examples shared for developers who want to improve faster.',
+                      ),
+                    ),
+                  ],
+                ),
         ],
       ),
     );
@@ -770,7 +1052,13 @@ class SessionCard extends StatelessWidget {
   final String timePrice;
   final String desc;
 
-  const SessionCard({super.key, required this.icon, required this.title, required this.timePrice, required this.desc});
+  const SessionCard({
+    super.key,
+    required this.icon,
+    required this.title,
+    required this.timePrice,
+    required this.desc,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -785,7 +1073,7 @@ class SessionCard extends StatelessWidget {
             color: Colors.black.withValues(alpha: 0.02),
             blurRadius: 10,
             offset: const Offset(0, 4),
-          )
+          ),
         ],
       ),
       child: Column(
@@ -809,12 +1097,27 @@ class SessionCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Color(0xFF111111))),
+                    Text(
+                      title,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: Color(0xFF111111),
+                      ),
+                    ),
                     const SizedBox(height: 4),
-                    Text(desc, style: const TextStyle(fontSize: 13, color: Color(0xFF666666)), maxLines: 2, overflow: TextOverflow.ellipsis),
+                    Text(
+                      desc,
+                      style: const TextStyle(
+                        fontSize: 13,
+                        color: Color(0xFF666666),
+                      ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ],
                 ),
-              )
+              ),
             ],
           ),
           const SizedBox(height: 24),
@@ -827,21 +1130,40 @@ class SessionCard extends StatelessWidget {
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Icon(TablerIcons.clock, size: 14, color: Color(0xFF888888)),
+                  const Icon(
+                    TablerIcons.clock,
+                    size: 14,
+                    color: Color(0xFF888888),
+                  ),
                   const SizedBox(width: 6),
-                  Text(timePrice, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: Color(0xFF666666))),
+                  Text(
+                    timePrice,
+                    style: const TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w500,
+                      color: Color(0xFF666666),
+                    ),
+                  ),
                 ],
               ),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () => _launchExternalUrl(_linkedinCommunityUrl),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF111111),
                   foregroundColor: Colors.white,
                   elevation: 0,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 10,
+                  ),
                 ),
-                child: const Text('Book now', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500)),
+                child: const Text(
+                  'Join community',
+                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+                ),
               ),
             ],
           ),
@@ -865,50 +1187,151 @@ class _ResourcesSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Resources & Templates', style: TextStyle(fontSize: 28, fontWeight: FontWeight.w600, letterSpacing: -0.5, color: Color(0xFF111111))),
+          const Text(
+            'Resources & Templates',
+            style: TextStyle(
+              fontSize: 28,
+              fontWeight: FontWeight.w600,
+              letterSpacing: -0.5,
+              color: Color(0xFF111111),
+            ),
+          ),
           const SizedBox(height: 8),
-          const Text('High-quality boilerplate codes and cheatsheets to accelerate your dev process.', style: TextStyle(fontSize: 15, color: Color(0xFF666666))),
+          const Text(
+            'Free PDFs, templates, and paid Gumroad products for faster building.',
+            style: TextStyle(fontSize: 15, color: Color(0xFF666666)),
+          ),
           const SizedBox(height: 40),
-          
-          const Text('Free resources', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Color(0xFF111111))),
+
+          const Text(
+            'Free resources',
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+              color: Color(0xFF111111),
+            ),
+          ),
           const SizedBox(height: 20),
           isMobile
               ? const Column(
                   children: [
-                    ResourceCard(icon: TablerIcons.download, title: 'Flutter starter kit', desc: 'Production-ready boilerplate with Clean Architecture routing and state management pre-configured.', isFree: true, bgColor: Color(0xFFEAF3DE), iconColor: Color(0xFF3B6D11)),
+                    ResourceCard(
+                      icon: TablerIcons.file_text,
+                      title: 'Flutter roadmap PDF',
+                      desc:
+                          'A beginner-friendly path for learning Flutter, projects to build, and common mistakes to avoid.',
+                      isFree: true,
+                      bgColor: Color(0xFFEAF3DE),
+                      iconColor: Color(0xFF3B6D11),
+                    ),
                     SizedBox(height: 24),
-                    ResourceCard(icon: TablerIcons.file_code, title: 'REST API cheatsheet', desc: 'Complete Spring Boot REST API quick reference PDF with best practices.', isFree: true, bgColor: Color(0xFFEAF3DE), iconColor: Color(0xFF3B6D11)),
+                    ResourceCard(
+                      icon: TablerIcons.file_code,
+                      title: 'Spring Boot API cheatsheet',
+                      desc:
+                          'Quick reference PDF for REST APIs, folder structure, validation, and production basics.',
+                      isFree: true,
+                      bgColor: Color(0xFFEAF3DE),
+                      iconColor: Color(0xFF3B6D11),
+                    ),
                   ],
                 )
               : const Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(child: ResourceCard(icon: TablerIcons.download, title: 'Flutter starter kit', desc: 'Production-ready boilerplate with Clean Architecture routing and state management pre-configured.', isFree: true, bgColor: Color(0xFFEAF3DE), iconColor: Color(0xFF3B6D11))),
-                      SizedBox(width: 24),
-                      Expanded(child: ResourceCard(icon: TablerIcons.file_code, title: 'REST API cheatsheet', desc: 'Complete Spring Boot REST API quick reference PDF with best practices.', isFree: true, bgColor: Color(0xFFEAF3DE), iconColor: Color(0xFF3B6D11))),
-                    ],
-                  ),
-          
+                  children: [
+                    Expanded(
+                      child: ResourceCard(
+                        icon: TablerIcons.file_text,
+                        title: 'Flutter roadmap PDF',
+                        desc:
+                            'A beginner-friendly path for learning Flutter, projects to build, and common mistakes to avoid.',
+                        isFree: true,
+                        bgColor: Color(0xFFEAF3DE),
+                        iconColor: Color(0xFF3B6D11),
+                      ),
+                    ),
+                    SizedBox(width: 24),
+                    Expanded(
+                      child: ResourceCard(
+                        icon: TablerIcons.file_code,
+                        title: 'Spring Boot API cheatsheet',
+                        desc:
+                            'Quick reference PDF for REST APIs, folder structure, validation, and production basics.',
+                        isFree: true,
+                        bgColor: Color(0xFFEAF3DE),
+                        iconColor: Color(0xFF3B6D11),
+                      ),
+                    ),
+                  ],
+                ),
+
           const SizedBox(height: 48),
-          
-          const Text('Premium templates', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Color(0xFF111111))),
+
+          const Text(
+            'Premium templates',
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+              color: Color(0xFF111111),
+            ),
+          ),
           const SizedBox(height: 20),
           isMobile
               ? const Column(
                   children: [
-                    ResourceCard(icon: TablerIcons.server, title: 'Spring Boot pro template', desc: 'Microservices template with Docker, Kubernetes configs, and CI/CD ready.', isFree: false, price: '₹299', bgColor: Color(0xFFFAEEDA), iconColor: Color(0xFF854F0B)),
+                    ResourceCard(
+                      icon: TablerIcons.brand_gumroad,
+                      title: 'Freelance proposal kit',
+                      desc:
+                          'Paid PDF pack with client brief format, proposal structure, pricing notes, and delivery checklist.',
+                      isFree: false,
+                      price: '₹299',
+                      bgColor: Color(0xFFFAEEDA),
+                      iconColor: Color(0xFF854F0B),
+                    ),
                     SizedBox(height: 24),
-                    ResourceCard(icon: TablerIcons.device_mobile, title: 'Flutter MVVM boilerplate', desc: 'Full MVVM architecture starter with GetX, local caching, and robust API layer.', isFree: false, price: '₹199', bgColor: Color(0xFFFAEEDA), iconColor: Color(0xFF854F0B)),
+                    ResourceCard(
+                      icon: TablerIcons.template,
+                      title: 'Flutter app template pack',
+                      desc:
+                          'Reusable app screens, state patterns, API layer notes, and project setup guidance.',
+                      isFree: false,
+                      price: '₹199',
+                      bgColor: Color(0xFFFAEEDA),
+                      iconColor: Color(0xFF854F0B),
+                    ),
                   ],
                 )
               : const Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(child: ResourceCard(icon: TablerIcons.server, title: 'Spring Boot pro template', desc: 'Microservices template with Docker, Kubernetes configs, and CI/CD ready.', isFree: false, price: '₹299', bgColor: Color(0xFFFAEEDA), iconColor: Color(0xFF854F0B))),
-                      SizedBox(width: 24),
-                      Expanded(child: ResourceCard(icon: TablerIcons.device_mobile, title: 'Flutter MVVM boilerplate', desc: 'Full MVVM architecture starter with GetX, local caching, and robust API layer.', isFree: false, price: '₹199', bgColor: Color(0xFFFAEEDA), iconColor: Color(0xFF854F0B))),
-                    ],
-                  ),
+                  children: [
+                    Expanded(
+                      child: ResourceCard(
+                        icon: TablerIcons.brand_gumroad,
+                        title: 'Freelance proposal kit',
+                        desc:
+                            'Paid PDF pack with client brief format, proposal structure, pricing notes, and delivery checklist.',
+                        isFree: false,
+                        price: '₹299',
+                        bgColor: Color(0xFFFAEEDA),
+                        iconColor: Color(0xFF854F0B),
+                      ),
+                    ),
+                    SizedBox(width: 24),
+                    Expanded(
+                      child: ResourceCard(
+                        icon: TablerIcons.template,
+                        title: 'Flutter app template pack',
+                        desc:
+                            'Reusable app screens, state patterns, API layer notes, and project setup guidance.',
+                        isFree: false,
+                        price: '₹199',
+                        bgColor: Color(0xFFFAEEDA),
+                        iconColor: Color(0xFF854F0B),
+                      ),
+                    ),
+                  ],
+                ),
         ],
       ),
     );
@@ -948,7 +1371,7 @@ class ResourceCard extends StatelessWidget {
             color: Colors.black.withValues(alpha: 0.02),
             blurRadius: 10,
             offset: const Offset(0, 4),
-          )
+          ),
         ],
       ),
       child: Column(
@@ -967,12 +1390,26 @@ class ResourceCard extends StatelessWidget {
               ),
               const SizedBox(width: 16),
               Expanded(
-                child: Text(title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Color(0xFF111111))),
+                child: Text(
+                  title,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFF111111),
+                  ),
+                ),
               ),
             ],
           ),
           const SizedBox(height: 16),
-          Text(desc, style: const TextStyle(fontSize: 13, color: Color(0xFF666666), height: 1.5)),
+          Text(
+            desc,
+            style: const TextStyle(
+              fontSize: 13,
+              color: Color(0xFF666666),
+              height: 1.5,
+            ),
+          ),
           const SizedBox(height: 24),
           Wrap(
             alignment: WrapAlignment.spaceBetween,
@@ -982,30 +1419,192 @@ class ResourceCard extends StatelessWidget {
             children: [
               isFree
                   ? Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 6,
+                      ),
                       decoration: BoxDecoration(
                         color: const Color(0xFFEAF3DE),
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      child: const Text('Free resource', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Color(0xFF3B6D11))),
+                      child: const Text(
+                        'Free resource',
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xFF3B6D11),
+                        ),
+                      ),
                     )
-                  : Text(price ?? '', style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Color(0xFF111111))),
+                  : Text(
+                      price ?? '',
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: Color(0xFF111111),
+                      ),
+                    ),
               ElevatedButton(
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFFEF9F27),
                   foregroundColor: Colors.white,
                   elevation: 0,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 10,
+                  ),
                 ),
-                child: Text(isFree ? 'Download' : 'Buy now', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500)),
+                child: Text(
+                  isFree ? 'Download' : 'Buy now',
+                  style: const TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
               ),
             ],
           ),
         ],
       ),
     );
+  }
+}
+
+class _CommunitySection extends StatelessWidget {
+  const _CommunitySection();
+
+  @override
+  Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+    final isDesktop = width > 768;
+
+    return SectionWrapper(
+      topPadding: 40,
+      bottomPadding: 80,
+      child: Container(
+        width: double.infinity,
+        padding: EdgeInsets.all(isDesktop ? 40 : 28),
+        decoration: BoxDecoration(
+          color: const Color(0xFF111111),
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: isDesktop
+            ? Row(
+                children: [
+                  const Expanded(child: _CommunityCopy()),
+                  const SizedBox(width: 32),
+                  _CommunityActions(isStacked: false),
+                ],
+              )
+            : Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const _CommunityCopy(),
+                  const SizedBox(height: 28),
+                  _CommunityActions(isStacked: true),
+                ],
+              ),
+      ),
+    );
+  }
+}
+
+class _CommunityCopy extends StatelessWidget {
+  const _CommunityCopy();
+
+  @override
+  Widget build(BuildContext context) {
+    return const Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(TablerIcons.users_group, size: 24, color: Color(0xFFEF9F27)),
+            SizedBox(width: 10),
+            Text(
+              'LinkedIn community',
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+                color: Color(0xFFEF9F27),
+              ),
+            ),
+          ],
+        ),
+        SizedBox(height: 14),
+        Text(
+          'Join my tech community',
+          style: TextStyle(
+            fontSize: 30,
+            fontWeight: FontWeight.w600,
+            letterSpacing: -0.5,
+            color: Colors.white,
+          ),
+        ),
+        SizedBox(height: 10),
+        Text(
+          'A place for developers, students, and freelancers to learn Flutter, backend development, project building, and real freelance work lessons.',
+          style: TextStyle(fontSize: 15, color: Color(0xFFBBBBBB), height: 1.6),
+        ),
+      ],
+    );
+  }
+}
+
+class _CommunityActions extends StatelessWidget {
+  final bool isStacked;
+
+  const _CommunityActions({required this.isStacked});
+
+  @override
+  Widget build(BuildContext context) {
+    final buttons = [
+      ElevatedButton.icon(
+        onPressed: () => _launchExternalUrl(_linkedinCommunityUrl),
+        icon: const Icon(TablerIcons.users_group, size: 18),
+        label: const Text(
+          'Join community',
+          style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+        ),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: const Color(0xFFEF9F27),
+          foregroundColor: Colors.white,
+          elevation: 0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(28),
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 17),
+        ),
+      ),
+      OutlinedButton.icon(
+        onPressed: () => _launchExternalUrl(_linkedinUrl),
+        icon: const Icon(TablerIcons.brand_linkedin, size: 18),
+        label: const Text(
+          'Follow Shivam',
+          style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+        ),
+        style: OutlinedButton.styleFrom(
+          foregroundColor: Colors.white,
+          side: const BorderSide(color: Colors.white, width: 1),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(28),
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 17),
+        ),
+      ),
+    ];
+
+    return isStacked
+        ? Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [buttons[0], const SizedBox(height: 12), buttons[1]],
+          )
+        : Wrap(spacing: 12, runSpacing: 12, children: buttons);
   }
 }
 
@@ -1022,21 +1621,31 @@ class _TestimonialsSection extends StatelessWidget {
       backgroundColor: const Color(0xFFFAFAFA),
       topPadding: 80,
       bottomPadding: 80,
-      border: const Border(
-        top: BorderSide(color: Color(0xFFE8E8E8), width: 1),
-      ),
+      border: const Border(top: BorderSide(color: Color(0xFFE8E8E8), width: 1)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const Text('Client testimonials', style: TextStyle(fontSize: 28, fontWeight: FontWeight.w600, letterSpacing: -0.5, color: Color(0xFF111111))),
+          const Text(
+            'Client testimonials',
+            style: TextStyle(
+              fontSize: 28,
+              fontWeight: FontWeight.w600,
+              letterSpacing: -0.5,
+              color: Color(0xFF111111),
+            ),
+          ),
           const SizedBox(height: 8),
-          const Text('Don\'t just take my word for it.', style: TextStyle(fontSize: 15, color: Color(0xFF666666))),
+          const Text(
+            'Don\'t just take my word for it.',
+            style: TextStyle(fontSize: 15, color: Color(0xFF666666)),
+          ),
           const SizedBox(height: 40),
           isMobile
               ? const Column(
                   children: [
                     TestimonialCard(
-                      text: '"Delivered our Flutter app on time with exceptional code quality. Architecture is pristine and highly scalable. Highly recommend!"',
+                      text:
+                          '"Delivered our Flutter app on time with exceptional code quality. Architecture is pristine and highly scalable. Highly recommend!"',
                       avatar: 'SJ',
                       avatarBg: Color(0xFFFAEEDA),
                       avatarColor: Color(0xFF854F0B),
@@ -1045,7 +1654,8 @@ class _TestimonialsSection extends StatelessWidget {
                     ),
                     SizedBox(height: 24),
                     TestimonialCard(
-                      text: '"Backend architecture designed for scale. Handling 10k+ concurrent users on our Spring Boot services without a single hiccup."',
+                      text:
+                          '"Backend architecture designed for scale. Handling 10k+ concurrent users on our Spring Boot services without a single hiccup."',
                       avatar: 'MR',
                       avatarBg: Color(0xFFEAF3DE),
                       avatarColor: Color(0xFF3B6D11),
@@ -1054,101 +1664,108 @@ class _TestimonialsSection extends StatelessWidget {
                     ),
                     SizedBox(height: 24),
                     TestimonialCard(
-                      text: '"The mentorship session completely changed my approach to Flutter development. I learned more in 45 mins than in weeks of tutorials."',
+                      text:
+                          '"The resources made Flutter and backend setup much clearer. The checklists are simple, practical, and easy to apply."',
                       avatar: 'DK',
                       avatarBg: Color(0xFFEEEDFE),
                       avatarColor: Color(0xFF534AB7),
                       name: 'David K.',
-                      role: 'Student · Mentorship',
+                      role: 'Student · Resources',
                     ),
                   ],
                 )
               : isTablet
-                  ? const Column(
-                      children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Expanded(
-                                child: TestimonialCard(
-                                  text: '"Delivered our Flutter app on time with exceptional code quality. Architecture is pristine and highly scalable. Highly recommend!"',
-                                  avatar: 'SJ',
-                                  avatarBg: Color(0xFFFAEEDA),
-                                  avatarColor: Color(0xFF854F0B),
-                                  name: 'Sarah J.',
-                                  role: 'CEO · FinTech App Dev',
-                                ),
-                              ),
-                              SizedBox(width: 24),
-                              Expanded(
-                                child: TestimonialCard(
-                                  text: '"Backend architecture designed for scale. Handling 10k+ concurrent users on our Spring Boot services without a single hiccup."',
-                                  avatar: 'MR',
-                                  avatarBg: Color(0xFFEAF3DE),
-                                  avatarColor: Color(0xFF3B6D11),
-                                  name: 'Mark R.',
-                                  role: 'CTO · Backend Systems',
-                                ),
-                              ),
-                            ],
-                          ),
-                        SizedBox(height: 24),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Expanded(
-                                child: TestimonialCard(
-                                  text: '"The mentorship session completely changed my approach to Flutter development. I learned more in 45 mins than in weeks of tutorials."',
-                                  avatar: 'DK',
-                                  avatarBg: Color(0xFFEEEDFE),
-                                  avatarColor: Color(0xFF534AB7),
-                                  name: 'David K.',
-                                  role: 'Student · Mentorship',
-                                ),
-                              ),
-                              SizedBox(width: 24),
-                              Expanded(child: SizedBox()),
-                            ],
-                          ),
-                      ],
-                    )
-                  : const Row(
+              ? const Column(
+                  children: [
+                    Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(
-                            child: TestimonialCard(
-                              text: '"Delivered our Flutter app on time with exceptional code quality. Architecture is pristine and highly scalable. Highly recommend!"',
-                              avatar: 'SJ',
-                              avatarBg: Color(0xFFFAEEDA),
-                              avatarColor: Color(0xFF854F0B),
-                              name: 'Sarah J.',
-                              role: 'CEO · FinTech App Dev',
-                            ),
+                      children: [
+                        Expanded(
+                          child: TestimonialCard(
+                            text:
+                                '"Delivered our Flutter app on time with exceptional code quality. Architecture is pristine and highly scalable. Highly recommend!"',
+                            avatar: 'SJ',
+                            avatarBg: Color(0xFFFAEEDA),
+                            avatarColor: Color(0xFF854F0B),
+                            name: 'Sarah J.',
+                            role: 'CEO · FinTech App Dev',
                           ),
-                          SizedBox(width: 24),
-                          Expanded(
-                            child: TestimonialCard(
-                              text: '"Backend architecture designed for scale. Handling 10k+ concurrent users on our Spring Boot services without a single hiccup."',
-                              avatar: 'MR',
-                              avatarBg: Color(0xFFEAF3DE),
-                              avatarColor: Color(0xFF3B6D11),
-                              name: 'Mark R.',
-                              role: 'CTO · Backend Systems',
-                            ),
+                        ),
+                        SizedBox(width: 24),
+                        Expanded(
+                          child: TestimonialCard(
+                            text:
+                                '"Backend architecture designed for scale. Handling 10k+ concurrent users on our Spring Boot services without a single hiccup."',
+                            avatar: 'MR',
+                            avatarBg: Color(0xFFEAF3DE),
+                            avatarColor: Color(0xFF3B6D11),
+                            name: 'Mark R.',
+                            role: 'CTO · Backend Systems',
                           ),
-                          SizedBox(width: 24),
-                          Expanded(
-                            child: TestimonialCard(
-                              text: '"The mentorship session completely changed my approach to Flutter development. I learned more in 45 mins than in weeks of tutorials."',
-                              avatar: 'DK',
-                              avatarBg: Color(0xFFEEEDFE),
-                              avatarColor: Color(0xFF534AB7),
-                              name: 'David K.',
-                              role: 'Student · Mentorship',
-                            ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 24),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: TestimonialCard(
+                            text:
+                                '"The resources made Flutter and backend setup much clearer. The checklists are simple, practical, and easy to apply."',
+                            avatar: 'DK',
+                            avatarBg: Color(0xFFEEEDFE),
+                            avatarColor: Color(0xFF534AB7),
+                            name: 'David K.',
+                            role: 'Student · Resources',
                           ),
-                        ],
+                        ),
+                        SizedBox(width: 24),
+                        Expanded(child: SizedBox()),
+                      ],
+                    ),
+                  ],
+                )
+              : const Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: TestimonialCard(
+                        text:
+                            '"Delivered our Flutter app on time with exceptional code quality. Architecture is pristine and highly scalable. Highly recommend!"',
+                        avatar: 'SJ',
+                        avatarBg: Color(0xFFFAEEDA),
+                        avatarColor: Color(0xFF854F0B),
+                        name: 'Sarah J.',
+                        role: 'CEO · FinTech App Dev',
                       ),
+                    ),
+                    SizedBox(width: 24),
+                    Expanded(
+                      child: TestimonialCard(
+                        text:
+                            '"Backend architecture designed for scale. Handling 10k+ concurrent users on our Spring Boot services without a single hiccup."',
+                        avatar: 'MR',
+                        avatarBg: Color(0xFFEAF3DE),
+                        avatarColor: Color(0xFF3B6D11),
+                        name: 'Mark R.',
+                        role: 'CTO · Backend Systems',
+                      ),
+                    ),
+                    SizedBox(width: 24),
+                    Expanded(
+                      child: TestimonialCard(
+                        text:
+                            '"The resources made Flutter and backend setup much clearer. The checklists are simple, practical, and easy to apply."',
+                        avatar: 'DK',
+                        avatarBg: Color(0xFFEEEDFE),
+                        avatarColor: Color(0xFF534AB7),
+                        name: 'David K.',
+                        role: 'Student · Resources',
+                      ),
+                    ),
+                  ],
+                ),
         ],
       ),
     );
@@ -1186,16 +1803,31 @@ class TestimonialCard extends StatelessWidget {
             color: Colors.black.withValues(alpha: 0.02),
             blurRadius: 10,
             offset: const Offset(0, 4),
-          )
+          ),
         ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('★★★★★', style: TextStyle(color: Color(0xFFEF9F27), fontSize: 16, letterSpacing: 2)),
+          const Text(
+            '★★★★★',
+            style: TextStyle(
+              color: Color(0xFFEF9F27),
+              fontSize: 16,
+              letterSpacing: 2,
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 16),
-            child: Text(text, style: const TextStyle(fontSize: 14, color: Color(0xFF555555), height: 1.6, fontStyle: FontStyle.italic)),
+            child: Text(
+              text,
+              style: const TextStyle(
+                fontSize: 14,
+                color: Color(0xFF555555),
+                height: 1.6,
+                fontStyle: FontStyle.italic,
+              ),
+            ),
           ),
           const SizedBox(height: 8),
           Row(
@@ -1208,20 +1840,44 @@ class TestimonialCard extends StatelessWidget {
                   shape: BoxShape.circle,
                 ),
                 alignment: Alignment.center,
-                child: Text(avatar, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: avatarColor)),
+                child: Text(
+                  avatar,
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: avatarColor,
+                  ),
+                ),
               ),
               const SizedBox(width: 12),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(name, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Color(0xFF111111)), maxLines: 1, overflow: TextOverflow.ellipsis),
-                    Text(role, style: const TextStyle(fontSize: 12, color: Color(0xFF888888)), maxLines: 1, overflow: TextOverflow.ellipsis),
+                    Text(
+                      name,
+                      style: const TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: Color(0xFF111111),
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    Text(
+                      role,
+                      style: const TextStyle(
+                        fontSize: 12,
+                        color: Color(0xFF888888),
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ],
                 ),
               ),
             ],
-          )
+          ),
         ],
       ),
     );
@@ -1243,7 +1899,12 @@ class _HireSection extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           color: isDesktop ? null : Colors.white,
-          gradient: isDesktop ? const LinearGradient(colors: [Color(0xFF111111), Colors.white], stops: [0.5, 0.5]) : null,
+          gradient: isDesktop
+              ? const LinearGradient(
+                  colors: [Color(0xFF111111), Colors.white],
+                  stops: [0.5, 0.5],
+                )
+              : null,
           borderRadius: BorderRadius.circular(24),
           border: Border.all(color: const Color(0xFFE8E8E8), width: 1),
           boxShadow: [
@@ -1251,7 +1912,7 @@ class _HireSection extends StatelessWidget {
               color: Colors.black.withValues(alpha: 0.05),
               blurRadius: 20,
               offset: const Offset(0, 10),
-            )
+            ),
           ],
         ),
         clipBehavior: Clip.antiAlias,
@@ -1263,12 +1924,7 @@ class _HireSection extends StatelessWidget {
                   Expanded(child: _HireRight()),
                 ],
               )
-            : const Column(
-                children: [
-                  _HireLeft(),
-                  _HireRight(),
-                ],
-              ),
+            : const Column(children: [_HireLeft(), _HireRight()]),
       ),
     );
   }
@@ -1286,15 +1942,36 @@ class _HireLeft extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text('Work with me', style: TextStyle(fontSize: 32, fontWeight: FontWeight.w600, letterSpacing: -1, color: Colors.white)),
+          Text(
+            'Work with me',
+            style: TextStyle(
+              fontSize: 32,
+              fontWeight: FontWeight.w600,
+              letterSpacing: -1,
+              color: Colors.white,
+            ),
+          ),
           SizedBox(height: 16),
-          Text('Let\'s build something scalable together. Open for freelance opportunities, app development, and technical consulting.', style: TextStyle(fontSize: 15, color: Color(0xFFAAAAAA), height: 1.6)),
+          Text(
+            'Open for freelance app development, backend builds, and technical consulting. Most of my work starts from LinkedIn, so send a brief there or through this form.',
+            style: TextStyle(
+              fontSize: 15,
+              color: Color(0xFFAAAAAA),
+              height: 1.6,
+            ),
+          ),
           SizedBox(height: 48),
-          _HireMetaItem(icon: TablerIcons.at, text: 'shivam@portfolio.dev'),
+          _HireMetaItem(icon: TablerIcons.at, text: 'Available for freelance'),
           SizedBox(height: 16),
-          _HireMetaItem(icon: TablerIcons.brand_linkedin, text: 'LinkedIn / shivamgupta'),
+          _HireMetaItem(
+            icon: TablerIcons.brand_linkedin,
+            text: 'LinkedIn / shivam-gupta',
+          ),
           SizedBox(height: 16),
-          _HireMetaItem(icon: TablerIcons.brand_github, text: 'GitHub / shivamdev'),
+          _HireMetaItem(
+            icon: TablerIcons.brand_github,
+            text: 'GitHub / shivam2109964',
+          ),
         ],
       ),
     );
@@ -1313,7 +1990,14 @@ class _HireMetaItem extends StatelessWidget {
       children: [
         Icon(icon, size: 20, color: const Color(0xFFEF9F27)),
         const SizedBox(width: 12),
-        Text(text, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.white)),
+        Text(
+          text,
+          style: const TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            color: Colors.white,
+          ),
+        ),
       ],
     );
   }
@@ -1335,7 +2019,11 @@ class _HireRight extends StatelessWidget {
           const SizedBox(height: 20),
           const _FormField(label: 'Email', hint: 'john@company.com'),
           const SizedBox(height: 20),
-          const _FormField(label: 'Project brief', hint: 'Tell me about your project...', maxLines: 4),
+          const _FormField(
+            label: 'Project brief',
+            hint: 'Tell me about your project...',
+            maxLines: 4,
+          ),
           const SizedBox(height: 24),
           ElevatedButton(
             onPressed: () {},
@@ -1343,10 +2031,15 @@ class _HireRight extends StatelessWidget {
               backgroundColor: const Color(0xFFEF9F27),
               foregroundColor: Colors.white,
               elevation: 0,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32)),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(32),
+              ),
               padding: const EdgeInsets.symmetric(vertical: 20),
             ),
-            child: const Text('Submit brief', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
+            child: const Text(
+              'Submit brief',
+              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+            ),
           ),
         ],
       ),
@@ -1359,14 +2052,25 @@ class _FormField extends StatelessWidget {
   final String hint;
   final int maxLines;
 
-  const _FormField({required this.label, required this.hint, this.maxLines = 1});
+  const _FormField({
+    required this.label,
+    required this.hint,
+    this.maxLines = 1,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Color(0xFF333333))),
+        Text(
+          label,
+          style: const TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.w600,
+            color: Color(0xFF333333),
+          ),
+        ),
         const SizedBox(height: 8),
         TextField(
           maxLines: maxLines,
@@ -1376,7 +2080,10 @@ class _FormField extends StatelessWidget {
             hintStyle: const TextStyle(color: Color(0xFFBBBBBB)),
             filled: true,
             fillColor: const Color(0xFFFAFAFA),
-            contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 16,
+            ),
             enabledBorder: OutlineInputBorder(
               borderSide: const BorderSide(color: Color(0xFFE8E8E8), width: 1),
               borderRadius: BorderRadius.circular(12),
@@ -1386,8 +2093,27 @@ class _FormField extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
             ),
           ),
-        )
+        ),
       ],
+    );
+  }
+}
+
+class _SocialIcon extends StatelessWidget {
+  final IconData icon;
+  final String url;
+
+  const _SocialIcon({required this.icon, required this.url});
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () => _launchExternalUrl(url),
+      borderRadius: BorderRadius.circular(20),
+      child: Padding(
+        padding: const EdgeInsets.all(4),
+        child: Icon(icon, size: 20, color: const Color(0xFF888888)),
+      ),
     );
   }
 }
@@ -1413,40 +2139,90 @@ class Footer extends StatelessWidget {
             child: isMobile
                 ? const Column(
                     children: [
-                      Text('DevPortfolio', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Color(0xFF111111))),
+                      Text(
+                        'DevPortfolio',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xFF111111),
+                        ),
+                      ),
                       SizedBox(height: 24),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(TablerIcons.brand_github, size: 20, color: Color(0xFF888888)),
+                          _SocialIcon(
+                            icon: TablerIcons.brand_github,
+                            url: _githubUrl,
+                          ),
                           SizedBox(width: 24),
-                          Icon(TablerIcons.brand_linkedin, size: 20, color: Color(0xFF888888)),
+                          _SocialIcon(
+                            icon: TablerIcons.brand_linkedin,
+                            url: _linkedinUrl,
+                          ),
                           SizedBox(width: 24),
-                          Icon(TablerIcons.brand_twitter, size: 20, color: Color(0xFF888888)),
+                          _SocialIcon(
+                            icon: TablerIcons.brand_instagram,
+                            url: _instagramUrl,
+                          ),
                           SizedBox(width: 24),
-                          Icon(TablerIcons.brand_youtube, size: 20, color: Color(0xFF888888)),
+                          _SocialIcon(
+                            icon: TablerIcons.users_group,
+                            url: _linkedinCommunityUrl,
+                          ),
                         ],
                       ),
                       SizedBox(height: 24),
-                      Text('© 2025 Full-stack dev portfolio', style: TextStyle(fontSize: 12, color: Color(0xFFBBBBBB))),
+                      Text(
+                        '© 2026 Freelance tech portfolio',
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Color(0xFFBBBBBB),
+                        ),
+                      ),
                     ],
                   )
                 : const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('DevPortfolio', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Color(0xFF111111))),
+                      Text(
+                        'DevPortfolio',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xFF111111),
+                        ),
+                      ),
                       Row(
                         children: [
-                          Icon(TablerIcons.brand_github, size: 20, color: Color(0xFF888888)),
+                          _SocialIcon(
+                            icon: TablerIcons.brand_github,
+                            url: _githubUrl,
+                          ),
                           SizedBox(width: 24),
-                          Icon(TablerIcons.brand_linkedin, size: 20, color: Color(0xFF888888)),
+                          _SocialIcon(
+                            icon: TablerIcons.brand_linkedin,
+                            url: _linkedinUrl,
+                          ),
                           SizedBox(width: 24),
-                          Icon(TablerIcons.brand_twitter, size: 20, color: Color(0xFF888888)),
+                          _SocialIcon(
+                            icon: TablerIcons.brand_instagram,
+                            url: _instagramUrl,
+                          ),
                           SizedBox(width: 24),
-                          Icon(TablerIcons.brand_youtube, size: 20, color: Color(0xFF888888)),
+                          _SocialIcon(
+                            icon: TablerIcons.users_group,
+                            url: _linkedinCommunityUrl,
+                          ),
                         ],
                       ),
-                      Text('© 2025 Full-stack dev portfolio', style: TextStyle(fontSize: 12, color: Color(0xFFBBBBBB))),
+                      Text(
+                        '© 2026 Freelance tech portfolio',
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Color(0xFFBBBBBB),
+                        ),
+                      ),
                     ],
                   ),
           ),

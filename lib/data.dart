@@ -74,7 +74,8 @@ class TestimonialItem {
 final List<ProjectItem> allProjects = [
   const ProjectItem(
     title: 'ShopEase — E-commerce app',
-    desc: 'Full e-commerce platform with smart cart, secure payment gateways, live order tracking, and a comprehensive admin dashboard.',
+    desc:
+        'Full e-commerce platform with smart cart, secure payment gateways, live order tracking, and a comprehensive admin dashboard.',
     icon: TablerIcons.shopping_bag,
     iconColor: Color(0xFF854F0B),
     bgColor: Color(0xFFFAEEDA),
@@ -82,7 +83,8 @@ final List<ProjectItem> allProjects = [
   ),
   const ProjectItem(
     title: 'BookIt — Booking system',
-    desc: 'Versatile booking engine for salons, clinics, and gyms. Features multi-tenant admin dashboards and robust REST APIs.',
+    desc:
+        'Versatile booking engine for salons, clinics, and gyms. Features multi-tenant admin dashboards and robust REST APIs.',
     icon: TablerIcons.calendar,
     iconColor: Color(0xFFEF9F27),
     bgColor: Color(0xFF111111),
@@ -90,7 +92,8 @@ final List<ProjectItem> allProjects = [
   ),
   const ProjectItem(
     title: 'FitTrack — Health & Fitness',
-    desc: 'Activity tracking app featuring real-time step counting, meal logging, and Apple Health integration.',
+    desc:
+        'Activity tracking app featuring real-time step counting, meal logging, and Apple Health integration.',
     icon: TablerIcons.heartbeat,
     iconColor: Color(0xFF9E1F1F),
     bgColor: Color(0xFFFFEBEB),
@@ -98,7 +101,8 @@ final List<ProjectItem> allProjects = [
   ),
   const ProjectItem(
     title: 'SaaS Dashboard Pro',
-    desc: 'High-performance analytics dashboard for SaaS founders with deep metrics and live charts.',
+    desc:
+        'High-performance analytics dashboard for SaaS founders with deep metrics and live charts.',
     icon: TablerIcons.chart_pie,
     iconColor: Color(0xFF1C4C7E),
     bgColor: Color(0xFFE6F0FA),
@@ -107,22 +111,81 @@ final List<ProjectItem> allProjects = [
 ];
 
 final List<SessionItem> allSessions = [
-  const SessionItem(icon: TablerIcons.route, title: 'Flutter doubt session', timePrice: '30 min · ₹399', desc: 'Stuck on a bug? Let\'s fix it together.'),
-  const SessionItem(icon: TablerIcons.code, title: 'Code & project review', timePrice: '45 min · ₹599', desc: 'Deep dive into your architecture and code quality.'),
-  const SessionItem(icon: TablerIcons.rocket, title: 'Career Guidance', timePrice: '30 min · ₹299', desc: 'Actionable steps to land your first developer job.'),
-  const SessionItem(icon: TablerIcons.server, title: 'Backend System Design', timePrice: '60 min · ₹999', desc: 'Plan scalable microservices with Spring Boot.'),
+  const SessionItem(
+    icon: TablerIcons.brand_linkedin,
+    title: 'LinkedIn tech posts',
+    timePrice: 'Weekly',
+    desc:
+        'Short lessons from freelance projects, Flutter builds, and backend architecture.',
+  ),
+  const SessionItem(
+    icon: TablerIcons.file_text,
+    title: 'Build breakdowns',
+    timePrice: 'Free',
+    desc:
+        'PDF notes, templates, and examples shared for developers who want to improve faster.',
+  ),
+  const SessionItem(
+    icon: TablerIcons.brand_gumroad,
+    title: 'Gumroad resource drops',
+    timePrice: 'Free + paid',
+    desc:
+        'Templates, checklists, and PDFs for students, freelancers, and app builders.',
+  ),
+  const SessionItem(
+    icon: TablerIcons.users_group,
+    title: 'Developer community',
+    timePrice: 'LinkedIn',
+    desc:
+        'Join the community for tech posts, project ideas, and freelance learning.',
+  ),
 ];
 
 final List<ResourceItem> allResources = [
-  const ResourceItem(icon: TablerIcons.download, title: 'Flutter starter kit', desc: 'Production-ready boilerplate with Clean Architecture routing and state management pre-configured.', isFree: true, bgColor: Color(0xFFEAF3DE), iconColor: Color(0xFF3B6D11)),
-  const ResourceItem(icon: TablerIcons.file_code, title: 'REST API cheatsheet', desc: 'Complete Spring Boot REST API quick reference PDF with best practices.', isFree: true, bgColor: Color(0xFFEAF3DE), iconColor: Color(0xFF3B6D11)),
-  const ResourceItem(icon: TablerIcons.server, title: 'Spring Boot pro template', desc: 'Microservices template with Docker, Kubernetes configs, and CI/CD ready.', isFree: false, price: '₹299', bgColor: Color(0xFFFAEEDA), iconColor: Color(0xFF854F0B)),
-  const ResourceItem(icon: TablerIcons.device_mobile, title: 'Flutter MVVM boilerplate', desc: 'Full MVVM architecture starter with GetX, local caching, and robust API layer.', isFree: false, price: '₹199', bgColor: Color(0xFFFAEEDA), iconColor: Color(0xFF854F0B)),
+  const ResourceItem(
+    icon: TablerIcons.file_text,
+    title: 'Flutter roadmap PDF',
+    desc:
+        'A beginner-friendly path for learning Flutter, projects to build, and common mistakes to avoid.',
+    isFree: true,
+    bgColor: Color(0xFFEAF3DE),
+    iconColor: Color(0xFF3B6D11),
+  ),
+  const ResourceItem(
+    icon: TablerIcons.file_code,
+    title: 'Spring Boot API cheatsheet',
+    desc:
+        'Quick reference PDF for REST APIs, folder structure, validation, and production basics.',
+    isFree: true,
+    bgColor: Color(0xFFEAF3DE),
+    iconColor: Color(0xFF3B6D11),
+  ),
+  const ResourceItem(
+    icon: TablerIcons.brand_gumroad,
+    title: 'Freelance proposal kit',
+    desc:
+        'Paid PDF pack with client brief format, proposal structure, pricing notes, and delivery checklist.',
+    isFree: false,
+    price: '₹299',
+    bgColor: Color(0xFFFAEEDA),
+    iconColor: Color(0xFF854F0B),
+  ),
+  const ResourceItem(
+    icon: TablerIcons.template,
+    title: 'Flutter app template pack',
+    desc:
+        'Reusable app screens, state patterns, API layer notes, and project setup guidance.',
+    isFree: false,
+    price: '₹199',
+    bgColor: Color(0xFFFAEEDA),
+    iconColor: Color(0xFF854F0B),
+  ),
 ];
 
 final List<TestimonialItem> allTestimonials = [
   const TestimonialItem(
-    text: '"Delivered our Flutter app on time with exceptional code quality. Architecture is pristine and highly scalable. Highly recommend!"',
+    text:
+        '"Delivered our Flutter app on time with exceptional code quality. Architecture is pristine and highly scalable. Highly recommend!"',
     avatar: 'SJ',
     avatarBg: Color(0xFFFAEEDA),
     avatarColor: Color(0xFF854F0B),
@@ -130,7 +193,8 @@ final List<TestimonialItem> allTestimonials = [
     role: 'CEO · FinTech App Dev',
   ),
   const TestimonialItem(
-    text: '"Backend architecture designed for scale. Handling 10k+ concurrent users on our Spring Boot services without a single hiccup."',
+    text:
+        '"Backend architecture designed for scale. Handling 10k+ concurrent users on our Spring Boot services without a single hiccup."',
     avatar: 'MR',
     avatarBg: Color(0xFFEAF3DE),
     avatarColor: Color(0xFF3B6D11),
@@ -138,15 +202,17 @@ final List<TestimonialItem> allTestimonials = [
     role: 'CTO · Backend Systems',
   ),
   const TestimonialItem(
-    text: '"The mentorship session completely changed my approach to Flutter development. I learned more in 45 mins than in weeks of tutorials."',
+    text:
+        '"The resources made Flutter and backend setup much clearer. The checklists are simple, practical, and easy to apply."',
     avatar: 'DK',
     avatarBg: Color(0xFFEEEDFE),
     avatarColor: Color(0xFF534AB7),
     name: 'David K.',
-    role: 'Student · Mentorship',
+    role: 'Student · Resources',
   ),
   const TestimonialItem(
-    text: '"One of the best system design sessions I have ever had. The insights were extremely valuable for our scaling issues."',
+    text:
+        '"The technical breakdowns are direct and useful. They helped us think more clearly about scaling and backend structure."',
     avatar: 'AN',
     avatarBg: Color(0xFFFEECEB),
     avatarColor: Color(0xFFD32F2F),
@@ -154,7 +220,8 @@ final List<TestimonialItem> allTestimonials = [
     role: 'Lead Engineer',
   ),
   const TestimonialItem(
-    text: '"The templates saved me weeks of setup time. Highly recommended if you want to ship fast without reinventing the wheel."',
+    text:
+        '"The templates saved me weeks of setup time. Highly recommended if you want to ship fast without reinventing the wheel."',
     avatar: 'PJ',
     avatarBg: Color(0xFFE0F7FA),
     avatarColor: Color(0xFF006064),
